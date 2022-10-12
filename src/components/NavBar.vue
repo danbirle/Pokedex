@@ -29,6 +29,7 @@ function changeSortCriteria(event) {
 
 function changeSortOrder(event) {
   setSortOrder(event.target.value)
+  console.log('@R should sort')
   sort()
 }
 
@@ -55,9 +56,9 @@ function changeSortOrder(event) {
         <option>height</option>
         <option>weight</option>
       </select>
-      <select :value="sortOrder" @chance="changeSortOrder">
+      <select :value="sortOrder" @change="changeSortOrder">
         <option>ascending</option>
-        <option>dscending</option>
+        <option>descending</option>
       </select>
     </div>
     <div class="input-wrapper">
