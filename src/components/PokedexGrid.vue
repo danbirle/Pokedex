@@ -32,6 +32,9 @@ onMounted(() => {
       :sprite="pokemon.sprites.front_default || pokemon.sprites.other['official-artwork'].front_default || ''"
     />
     <div class="empty" v-if="loading">Loading data</div>
+    <div class="empty" v-if="filteredPokemonData.length === 0 && !loading">
+      No Pokemon found. Try adjusting your filters
+    </div>
   </main>
 
   <BottomNavBar />

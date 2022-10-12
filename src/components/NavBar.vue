@@ -21,7 +21,8 @@ const {
 } = usePokemon()
 
 function changePageSize(event) {
-  setPageSize(event.target.value)
+  setPageSize(parseInt(event.target.value))
+  sessionStorage.setItem('pokemon_pageSize', pageSize.value.toString())
   getPokemon()
 }
 
