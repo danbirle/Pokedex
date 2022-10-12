@@ -26,7 +26,12 @@ const props = defineProps({
 <style scoped lang="scss">
 .wrapper {
   border-radius: 5px;
-  background: rgb(9, 9, 121);
+  background: linear-gradient(
+    150deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }
 
 .card {
@@ -47,6 +52,7 @@ const props = defineProps({
 
 .card:hover {
   background-color: rgba(0, 212, 255, .25);
+  cursor: pointer;
 }
 
 .abilities {
