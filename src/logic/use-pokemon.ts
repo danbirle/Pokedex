@@ -1,4 +1,5 @@
 import { getPokemons } from '@/data/get-pokemon'
+import { getPokemonDetails } from '@/data/get-pokemon-details'
 import { reactive, computed } from 'vue'
 
 const state = reactive({
@@ -29,16 +30,23 @@ export function usePokemon() {
   }
 
   async function getPokemon() {
+    state.pokemonData = []
+
     try {
       state.loading = true
 
       const response = await getPokemons(state.currentPage, state.pageSize)
       state.isLastPage = !response.next
-      state.pokemonData = response.results
+      response.results.map(async (pokemon) => {
+        const recResponse = await getPokemonDetails(pokemon.name)
+        state.pokemonData.push(recResponse)
+        // check if all pokemons have been loaded
+        if (state.pokemonData.length === state.pageSize) {
+          state.loading = false
+        }
+      })
     } catch(e) {
       console.error('Error loading pokemon data: ', e)
-    } finally {
-      state.loading = false
     }
   }
 

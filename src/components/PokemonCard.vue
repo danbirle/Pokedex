@@ -16,7 +16,7 @@ const props = defineProps({
       <div><span>Height: </span><br />{{ props.height }}dm</div>
       <div class="abilities">
         <div v-for="ability in props.abilities" v-bind:key="`pokemon_ability_${ability}`">
-          {{ ability }}
+          {{ ability.ability.name }}
         </div>
       </div>
     </div>
@@ -42,6 +42,7 @@ const props = defineProps({
   background-color: rgba(9, 9, 121, .5);
   transition: background-color .25s ease-in-out;
   background-size: 7rem;
+  text-transform: capitalize;
 }
 
 .card:hover {

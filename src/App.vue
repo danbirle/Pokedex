@@ -25,12 +25,12 @@ onMounted(() => {
   <main>
     <PokemonCard
       :name="pokemon.name"
-      :height="5"
-      :weight="10"
-      :abilities="['Shock', 'Bash']"
+      :height="pokemon.height"
+      :weight="pokemon.weight"
+      :abilities="pokemon.abilities"
       v-for="pokemon in pokemonData"
       v-bind:key="`pokemon_${pokemon.name}`"
-      sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+      :sprite="pokemon.sprites.front_default || pokemon.sprites.other['official-artwork'].front_default || ''"
     />
     <div class="empty" v-if="loading">Loading data</div>
   </main>
