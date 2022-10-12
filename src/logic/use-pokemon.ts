@@ -33,6 +33,7 @@ export function usePokemon() {
       state.loading = true
 
       const response = await getPokemons(state.currentPage, state.pageSize)
+      state.isLastPage = !response.next
       state.pokemonData = response.results
     } catch(e) {
       console.error('Error loading pokemon data: ', e)
