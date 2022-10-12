@@ -8,6 +8,9 @@ declare interface PokemonDetails {
   height: number
   weight: number
   id: number
+  species: {
+    name: string
+  }
   sprites: {
     front_default: string
     other: {
@@ -22,6 +25,21 @@ declare interface PokemonDetails {
     ability: {
       name: string
       url: string
+    }
+  }[]
+  held_items: {
+    item: {
+      name: string
+    }
+  }[]
+  types: {
+    type: {
+      name: string
+    }
+  }[]
+  moves: {
+    move: {
+      name: string
     }
   }[]
 }
