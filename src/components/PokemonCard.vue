@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="wrapper">
+  <a :href="`/details?pokemon=${props.name}`" class="wrapper">
     <div :style="`background-image: url('${props.sprite}')`" class="card">
       <div>{{ props.name }}</div>
       <div><span>Weight: </span><br />{{ props.weight }}hg</div>
@@ -20,7 +20,7 @@ const props = defineProps({
         </div>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <style scoped lang="scss">

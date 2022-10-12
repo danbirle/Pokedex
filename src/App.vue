@@ -1,74 +1,26 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { ref, computed} from 'vue'
 
-import PokemonCard from './components/PokemonCard.vue'
-import NavBar from './components/NavBar.vue'
-import BottomNavBar from './components/BottomNavBar.vue'
+import PokedexGrid from '@/components/PokedexGrid.vue'
+import PokemonDetails from '@/components/PokemonDetails.vue'
+import NotFound from '@/components/NotFound.vue'
 
-import { usePokemon } from './logic/use-pokemon'
+const routes = {
+  "/": PokedexGrid,
+  "/details": PokemonDetails,
+}
 
-const {
-  loading,
-  pokemonData,
-  getPokemon,
-} = usePokemon()
+const currentPath = ref(window.location.pathname)
 
-onMounted(() => {
-  getPokemon()
+window.addEventListener('hashchange', () => {
+  currentPath.value = window.location.pathname
 })
 
+const currentView = computed(
+  () => routes[(currentPath.value as keyof typeof routes) || '/'] || NotFound
+)
 </script>
 
 <template>
-  <NavBar />
-
-  <main>
-    <PokemonCard
-      :name="pokemon.name"
-      :height="pokemon.height"
-      :weight="pokemon.weight"
-      :abilities="pokemon.abilities"
-      v-for="pokemon in pokemonData"
-      v-bind:key="`pokemon_${pokemon.name}`"
-      :sprite="pokemon.sprites.front_default || pokemon.sprites.other['official-artwork'].front_default || ''"
-    />
-    <div class="empty" v-if="loading">Loading data</div>
-  </main>
-
-  <BottomNavBar />
+  <component :is="currentView" />
 </template>
-
-<style scoped>
-.empty {
-  padding: 4rem;
-  text-align: center;
-  width: 100%;
-  grid-column: span 4;
-}
-
-main {
-  width: 100%;
-  grid-gap: 1rem;
-  gap: 1rem;
-  display: flex;
-  flex-direction: column;
-  padding: 3rem 1rem .75rem 1rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-@media screen and (min-width: 580px) {
-  main {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    padding-top: 1rem;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  main {
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-  }
-}
-</style>
