@@ -1,11 +1,32 @@
+<script setup lang="ts">
+import { usePokemon } from '@/logic/use-pokemon'
+
+const {
+  nextPage,
+  previousPage,
+  currentPage,
+  pageSize,
+  setPageSize,
+  loading,
+  isLastPage,
+  getPokemon,
+} = usePokemon()
+
+function changePageSize(event) {
+  setPageSize(event.target.value)
+  getPokemon()
+}
+
+</script>
+
 <template>
   <header>
-    <button>
+    <button :disabled="currentPage === 0 || loading" @click="previousPage">
       &lt;
     </button>
     <div>
       <span>Page size: </span>
-      <select>
+      <select :value="pageSize" @change="changePageSize">
         <option>10</option>
         <option>20</option>
         <option>50</option>
@@ -28,7 +49,7 @@
       <label for="filter-input">Filter: </label>
       <input id="filter-input" type="text" />
     </div>
-    <button>&gt;</button>
+    <button :disabled="isLastPage || loading" @click="nextPage">&gt;</button>
   </header>
 </template>
 
