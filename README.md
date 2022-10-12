@@ -1,6 +1,8 @@
 # Pokedex
 
 Vue 3 application displaying pokemon information fetched from https://pokeapi.co/.
+Run `npm i`, `npm run prepare` and `npm start` to run the solution.
+Run `npm run test:unit` to start the unit test runner.
 
 
 ## Project Setup
