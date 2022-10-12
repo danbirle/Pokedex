@@ -2,7 +2,7 @@ import { getPokemons } from '@/data/get-pokemon'
 import { getPokemonDetails } from '@/data/get-pokemon-details'
 import { reactive, computed } from 'vue'
 
-const state = reactive({
+const state = reactive<PokemonState>({
   pokemonData: [],
   loading: false,
   currentPage: 0,
@@ -37,7 +37,7 @@ export function usePokemon() {
 
       const response = await getPokemons(state.currentPage, state.pageSize)
       state.isLastPage = !response.next
-      response.results.map(async (pokemon) => {
+      response.results.map(async (pokemon: Pokemon) => {
         const recResponse = await getPokemonDetails(pokemon.name)
         state.pokemonData.push(recResponse)
         // check if all pokemons have been loaded
@@ -64,4 +64,12 @@ export function usePokemon() {
     nextPage,
     previousPage,
   }
+}
+
+interface PokemonState {
+  pokemonData: Array<PokemonDetails>
+  loading: boolean
+  currentPage: number
+  pageSize: number
+  isLastPage: boolean
 }
