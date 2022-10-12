@@ -76,7 +76,10 @@ export function usePokemon() {
     if (state.filterText === '') {
       state.filteredPokemonData = state.pokemonData
     } else {
-      // @R implement filtering
+      state.filteredPokemonData = state.pokemonData.filter(
+        pokemon => pokemon.name.includes(state.filterText) ||
+          pokemon.abilities.find(ability => ability.ability.name.includes(state.filterText))
+      )
     }
     sort()
   }
@@ -90,12 +93,14 @@ export function usePokemon() {
     isLastPage: computed(() => state.isLastPage),
     sortByCriteria: computed(() => state.sortByCriteria),
     sortOrder: computed(() => state.sortOrder),
+    filterText: computed(() => state.filterText),
     // getters
     getPokemon,
     // setters
     setPageSize: (value: number) => { state.pageSize = value },
     setSortCriteria: (value: SortByCriteria) => { state.sortByCriteria = value },
     setSortOrder: (value: SortOrder) => { state.sortOrder = value },
+    setFilterText: (value: string) => { state.filterText = value },
     // methods
     nextPage,
     previousPage,

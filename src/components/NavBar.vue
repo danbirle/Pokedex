@@ -15,6 +15,9 @@ const {
   setSortOrder,
   sortByCriteria,
   sortOrder,
+  filter,
+  setFilterText,
+  filterText,
 } = usePokemon()
 
 function changePageSize(event) {
@@ -31,6 +34,11 @@ function changeSortOrder(event) {
   setSortOrder(event.target.value)
   console.log('@R should sort')
   sort()
+}
+
+function changeFilter(event) {
+  setFilterText(event.target.value)
+  filter()
 }
 
 </script>
@@ -63,7 +71,7 @@ function changeSortOrder(event) {
     </div>
     <div class="input-wrapper">
       <label for="filter-input">Filter: </label>
-      <input id="filter-input" type="text" />
+      <input id="filter-input" type="text" @input="changeFilter" :value="filterText" />
     </div>
     <button :disabled="isLastPage || loading" @click="nextPage">&gt;</button>
   </header>
@@ -83,6 +91,7 @@ header {
 
   select {
     height: 1.6rem;
+    text-transform: capitalize;
   }
   
   & > button {
