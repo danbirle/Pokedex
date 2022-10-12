@@ -20,7 +20,7 @@ function changePageSize(event) {
 </script>
 
 <template>
-  <header>
+  <header class="navbar">
     <button :disabled="currentPage === 0 || loading" @click="previousPage">
       &lt;
     </button>
@@ -32,7 +32,7 @@ function changePageSize(event) {
         <option>50</option>
       </select>
     </div>
-    <div>
+    <div class="selects-wrapper">
       Sort: 
       <select>
         <option>id</option>
@@ -62,14 +62,38 @@ header {
   grid-template-rows: auto auto;
   grid-template-columns: repeat(4, auto);
   justify-items: space-between;
-  width: 100%;
-  background: #181818;
-  padding: .5rem 1rem;
+  top: 0;
+  white-space: nowrap;
   
   & > button {
     grid-row: span 2;
     height: 100%;
     padding: 0 .5rem;
+
+    &:first-child {
+      margin-right: auto;
+    }
+
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+
+  .selects-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 13rem;
+
+    & > select {
+      width: 100%;
+      min-width: 2rem;
+      max-width: 10rem;
+
+      &:first-child {
+        margin-left: .5rem;
+        max-width: 4.5rem;
+      }
+    }
   }
 
   .input-wrapper {
@@ -79,6 +103,7 @@ header {
     grid-column: 2 / span 2;
 
     input {
+      height: 1.6rem;
       flex-shrink: 2;
       width: 100%;
       max-width: 100%;

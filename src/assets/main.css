@@ -3,9 +3,18 @@
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
 
   font-weight: normal;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  max-width: 1280px;
+  left: auto;
+  background: #181818;
+  z-index: 1;
+  padding: .5rem 1rem;
 }
 
 a,

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+
 import PokemonCard from './components/PokemonCard.vue'
 import NavBar from './components/NavBar.vue'
+import BottomNavBar from './components/BottomNavBar.vue'
+
 import { usePokemon } from './logic/use-pokemon'
 
 const {
@@ -31,6 +34,8 @@ onMounted(() => {
     />
     <div class="empty" v-if="loading">Loading data</div>
   </main>
+
+  <BottomNavBar />
 </template>
 
 <style scoped>
