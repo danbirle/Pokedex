@@ -41,6 +41,15 @@ function changeFilter(event) {
   filter()
 }
 
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft' && !loading.value) {
+    previousPage()
+  }
+
+  if (event.key === 'ArrowRight' && !loading.value) {
+    nextPage()
+  }
+})
 </script>
 
 <template>

@@ -20,12 +20,31 @@ export function usePokemon() {
     state.filteredPokemonData = []
   }
 
+  function checkStorage() {
+    const currentPage = sessionStorage.getItem('pokemon_current_page')
+    const pageSize = sessionStorage.getItem('pokemon_pageSize')
+    state.filterText =
+      sessionStorage.getItem('pokemon_filter_text') || state.filterText
+    state.sortByCriteria =
+      sessionStorage.getItem('pokemon_sort_by') as SortByCriteria || state.sortByCriteria
+    state.sortOrder =
+      sessionStorage.getItem('pokemon_sort_order') as SortOrder || state.sortOrder
+    if (pageSize) {
+      state.pageSize = parseInt(pageSize)
+    }
+    if (currentPage) {
+      state.currentPage = parseInt(currentPage)
+    }
+  }
+
   function nextPage() {
     if (state.isLastPage) {
       return false
     }
 
     state.currentPage = state.currentPage + 1
+    sessionStorage.setItem('pokemon_current_page', state.currentPage.toString())
+    clearData()
     getPokemon()
   }
 
@@ -35,11 +54,14 @@ export function usePokemon() {
     }
 
     state.currentPage = state.currentPage - 1
+    sessionStorage.setItem('pokemon_current_page', state.currentPage.toString())
+    clearData()
     getPokemon()
   }
 
   async function getPokemon() {
     clearData()
+    checkStorage()
 
     try {
       state.loading = true
@@ -62,7 +84,7 @@ export function usePokemon() {
 
   function sort() {
     state.filteredPokemonData.sort((a, b) =>
-      state.sortOrder === "ascending"
+      state.sortOrder === 'ascending'
         ? a[state.sortByCriteria] < b[state.sortByCriteria]
           ? -1
           : 1
@@ -70,6 +92,9 @@ export function usePokemon() {
           ? -1
           : 1
     )
+
+    sessionStorage.setItem('pokemon_sort_by', state.sortByCriteria)
+    sessionStorage.setItem('pokemon_sort_order', state.sortOrder)
   }
 
   function filter() {
@@ -82,6 +107,7 @@ export function usePokemon() {
       )
     }
     sort()
+    sessionStorage.setItem('pokemon_filter_text', state.filterText)
   }
 
   return {

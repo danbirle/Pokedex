@@ -16,7 +16,6 @@ const {
 onMounted(() => {
   getPokemon()
 })
-
 </script>
 
 <template>
