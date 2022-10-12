@@ -1,7 +1,7 @@
 {
   "name": "pokedex",
   "description": "Vue 3 application displaying pokemon information fetched from https://pokeapi.co/",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "prepare": "husky install",
     "start": "vite",
