@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template>
   <div class="wrapper">
-    <div>
+    <div :style="`background-image: url('${props.sprite}')`" class="card">
       <div>{{ props.name }}</div>
       <div><span>Weight: </span><br />{{ props.weight }}hg</div>
       <div><span>Height: </span><br />{{ props.height }}dm</div>
@@ -24,5 +24,35 @@ const props = defineProps({
 </template>
 
 <style scoped lang="scss">
+.wrapper {
+  border-radius: 5px;
+  background: rgb(9, 9, 121);
+}
 
+.card {
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(2, auto);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  min-height: 10rem;
+  min-width: 15rem;
+  padding: .5rem;
+  background-color: rgba(9, 9, 121, .5);
+  transition: background-color .25s ease-in-out;
+  background-size: 7rem;
+}
+
+.card:hover {
+  background-color: rgba(0, 212, 255, .25);
+}
+
+.abilities {
+  align-self: flex-end;
+}
+
+.card span {
+  font-size: .75rem;
+}
 </style>

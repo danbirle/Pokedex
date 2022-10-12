@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import PokemonCard from './components/PokemonCard.vue'
 import NavBar from './components/NavBar.vue'
 </script>
 
@@ -8,7 +7,13 @@ import NavBar from './components/NavBar.vue'
   <NavBar />
 
   <main>
-    <TheWelcome />
+    <PokemonCard
+      name="Pikachu"
+      :height="5"
+      :weight="10"
+      :abilities="['Shock', 'Bash']"
+      sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+    />
   </main>
 </template>
 
