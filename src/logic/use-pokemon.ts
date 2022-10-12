@@ -4,13 +4,22 @@ import { reactive, computed } from 'vue'
 
 const state = reactive<PokemonState>({
   pokemonData: [],
+  filteredPokemonData: [],
   loading: false,
   currentPage: 0,
   pageSize: 20,
   isLastPage: false,
+  sortOrder: 'ascending',
+  sortByCriteria: 'id',
+  filterText: '',
 })
 
 export function usePokemon() {
+  function clearData() {
+    state.pokemonData = []
+    state.filteredPokemonData = []
+  }
+
   function nextPage() {
     if (state.isLastPage) {
       return false
@@ -30,7 +39,7 @@ export function usePokemon() {
   }
 
   async function getPokemon() {
-    state.pokemonData = []
+    clearData()
 
     try {
       state.loading = true
@@ -43,6 +52,7 @@ export function usePokemon() {
         // check if all pokemons have been loaded
         if (state.pokemonData.length === state.pageSize) {
           state.loading = false
+          filter()
         }
       })
     } catch(e) {
@@ -50,26 +60,61 @@ export function usePokemon() {
     }
   }
 
+  function sort() {
+    state.filteredPokemonData.sort((a, b) =>
+      state.sortOrder === "ascending"
+        ? a[state.sortByCriteria] < b[state.sortByCriteria]
+          ? -1
+          : 1
+        : a[state.sortByCriteria] > b[state.sortByCriteria]
+          ? -1
+          : 1
+    )
+  }
+
+  function filter() {
+    if (state.filterText === '') {
+      state.filteredPokemonData = state.pokemonData
+    } else {
+      // @R implement filtering
+    }
+    sort()
+  }
+
   return {
     pokemonData: computed(() => state.pokemonData),
+    filteredPokemonData: computed(() => state.filteredPokemonData),
     loading: computed(() => state.loading),
     currentPage: computed(() => state.currentPage),
     pageSize: computed(() => state.pageSize),
     isLastPage: computed(() => state.isLastPage),
+    sortByCriteria: computed(() => state.sortByCriteria),
+    sortOrder: computed(() => state.sortOrder),
     // getters
     getPokemon,
     // setters
     setPageSize: (value: number) => { state.pageSize = value },
+    setSortCriteria: (value: SortByCriteria) => { state.sortByCriteria = value },
+    setSortOrder: (value: SortOrder) => { state.sortOrder = value },
     // methods
     nextPage,
     previousPage,
+    sort,
+    filter,
   }
 }
 
 interface PokemonState {
   pokemonData: Array<PokemonDetails>
+  filteredPokemonData: Array<PokemonDetails>
   loading: boolean
   currentPage: number
   pageSize: number
   isLastPage: boolean
+  sortOrder: SortOrder
+  sortByCriteria: SortByCriteria
+  filterText: string
 }
+
+type SortByCriteria = 'id' | 'name' | 'height' | 'weight'
+type SortOrder = 'ascending' | 'descending'

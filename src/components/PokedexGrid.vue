@@ -9,7 +9,7 @@ import { usePokemon } from '@/logic/use-pokemon'
 
 const {
   loading,
-  pokemonData,
+  filteredPokemonData,
   getPokemon,
 } = usePokemon()
 
@@ -28,7 +28,7 @@ onMounted(() => {
       :height="pokemon.height"
       :weight="pokemon.weight"
       :abilities="pokemon.abilities"
-      v-for="pokemon in pokemonData"
+      v-for="pokemon in filteredPokemonData"
       v-bind:key="`pokemon_${pokemon.name}`"
       :sprite="pokemon.sprites.front_default || pokemon.sprites.other['official-artwork'].front_default || ''"
     />

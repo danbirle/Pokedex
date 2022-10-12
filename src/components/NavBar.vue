@@ -10,11 +10,26 @@ const {
   loading,
   isLastPage,
   getPokemon,
+  sort,
+  setSortCriteria,
+  setSortOrder,
+  sortByCriteria,
+  sortOrder,
 } = usePokemon()
 
 function changePageSize(event) {
   setPageSize(event.target.value)
   getPokemon()
+}
+
+function changeSortCriteria(event) {
+  setSortCriteria(event.target.value)
+  sort()
+}
+
+function changeSortOrder(event) {
+  setSortOrder(event.target.value)
+  sort()
 }
 
 </script>
@@ -34,13 +49,13 @@ function changePageSize(event) {
     </div>
     <div class="selects-wrapper">
       Sort: 
-      <select>
+      <select :value="sortByCriteria" @change="changeSortCriteria">
         <option>id</option>
         <option>name</option>
         <option>height</option>
         <option>weight</option>
       </select>
-      <select>
+      <select :value="sortOrder" @chance="changeSortOrder">
         <option>ascending</option>
         <option>dscending</option>
       </select>
