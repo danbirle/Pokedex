@@ -43,19 +43,32 @@ onMounted(() => {
   padding: 4rem;
   text-align: center;
   width: 100%;
+  grid-column: span 4;
 }
 
 main {
   width: 100%;
+  grid-gap: 1rem;
   gap: 1rem;
   display: flex;
   flex-direction: column;
   padding: 3rem 1rem .75rem 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-@media (min-width: 1024px) {
-  .logo {
-    margin: 0 2rem 0 0;
+@media screen and (min-width: 580px) {
+  main {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    padding-top: 1rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
   }
 }
 </style>

@@ -64,6 +64,10 @@ header {
   justify-items: space-between;
   top: 0;
   white-space: nowrap;
+
+  select {
+    height: 1.6rem;
+  }
   
   & > button {
     grid-row: span 2;
@@ -108,6 +112,23 @@ header {
       width: 100%;
       max-width: 100%;
     }
+  }
+}
+
+@media screen and (min-width: 580px) {
+  header {
+    display: flex;
+    justify-content: center;
+  }
+
+  .resize > input {
+    max-width: 12rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  header div span {
+    display: none;
   }
 }
 </style>
